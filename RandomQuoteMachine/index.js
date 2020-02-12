@@ -1,5 +1,9 @@
 const projectName = "random-quote-machine";
 
+/**
+ * Based in https://codepen.io/freeCodeCamp/full/qRZeGZ
+ */
+
 localStorage.setItem('example_project', 'Randowm Quote Machine');
 
 let quotes = "";
