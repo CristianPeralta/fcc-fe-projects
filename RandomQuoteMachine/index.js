@@ -19,7 +19,7 @@ function getRandomQuote() {
 }
 
 function openURL(url){
-    window.open(url, 'Share');
+    window.open(url, 'Share', 'width=550, height=400, toolbar=0, scrollbars=1 ,location=0 ,statusbar=0,menubar=0, resizable=0');
 }
 
 function getQuotes() {
@@ -40,6 +40,8 @@ function getQuote() {
     
     currentQuote = randomQuote.quote;
     currentAuthor = randomQuote.author;
+
+    $('#tweet-quote').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
     
     $('#text').text(randomQuote.quote);
     $('#author').html(randomQuote.author);
