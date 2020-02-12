@@ -34,3 +34,27 @@ function getQuotes() {
         console.log('ERROR: ', error);
     });
 }
+
+function getQuote() {
+    let randomQuote = getRandomQuote();
+    
+    currentQuote = randomQuote.quote;
+    currentAuthor = randomQuote.author;
+    
+    $('#text').text(randomQuote.quote);
+    $('#author').html(randomQuote.author);
+
+    const color = getRandomColor;
+    $("html body").css(
+        {
+            backgroundColor: color(),
+            color: color()
+        }
+    );
+
+    $(".button").css(
+        {
+            backgroundColor: color()
+        }
+    );
+}
