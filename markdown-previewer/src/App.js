@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
+function classList(classes) {
+  return Object
+    .entries(classes)
+    .filter(entry => entry[1])
+    .map(entry => entry[0])
+    .join(' ');
+}
+
 const Toolbar = (props) => {
   return (
     <div className="toolbar">
@@ -12,12 +20,15 @@ const Toolbar = (props) => {
 };
 
 const Wrap = (props) => {
-  const classByType = {
-    editor: "editorWrap",
-    preview: "previewWrap",
-  }
+  const wrapClasses = classList({
+    editorWrap: props.type === 'editor',
+    previewWrap: props.type === 'preview',
+    maximized: props.maximized,
+    hide: props.hide,
+  });
+
   return (
-    <div className={classByType[props.type]}>
+    <div className={wrapClasses}>
       {props.children}
     </div>
   )
@@ -79,15 +90,15 @@ And here. | Okay. | I think we get it.
 
 ![React Logo w/ Text](https://goo.gl/Umyytc)
 `
-
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       markdown: placeholder,
       editorMaximized: false,
-      previewMaximized: false
+      hideEditor: false,
+      previewMaximized: false,
+      hidePreviewer: false,
     };
     this.handleEditorMaximize = this.handleEditorMaximize.bind(this);
     this.handlePreviewMaximize = this.handlePreviewMaximize.bind(this);
@@ -97,6 +108,7 @@ class App extends Component {
     this.setState({
       editorMaximized: !this.state.editorMaximized
     });
+    
   }
 
   handlePreviewMaximize() {
@@ -108,14 +120,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Wrap type="editor">
+        <Wrap type="editor" maximized={this.state.editorMaximized} hide={this.state.hideEditor}>
           <Toolbar 
             icon="fa fa-arrows-alt" text="Editor"
             onClick={this.handleEditorMaximize}/>
           <Editor markdown={this.state.markdown}/>
         </Wrap>
-        <Wrap type="preview">
-          <Toolbar icon="fa fa-compress" text="Previewer"
+        <Wrap type="preview" maximized={this.state.previewMaximized} hide={this.state.hidePreviewer}>
+          <Toolbar icon="fa fa-arrows-alt" text="Previewer"
             onClick={this.handlePreviewMaximize}/>
         </Wrap>
       </div>
