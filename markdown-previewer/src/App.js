@@ -25,11 +25,25 @@ const Wrap = (props) => {
 
 class App extends Component {
   constructor(props) {
+    super(props);
     this.state = {
       editorMaximized: false,
       previewMaximized: false
     };
   }
+
+  handleEditorMaximize() {
+    this.setState({
+      editorMaximized: !this.state.editorMaximized
+    });
+  }
+
+  handlePreviewMaximize() {
+    this.setState({
+      previewMaximized: !this.state.previewMaximized
+    });
+  }
+  
   render() {
     return (
       <div>
