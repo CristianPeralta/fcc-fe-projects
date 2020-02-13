@@ -120,17 +120,21 @@ class App extends Component {
     });
   }
 
+  getIconClass (isMaxizimed) {
+    return isMaxizimed ? "fa fa-arrows-alt" : "fa fa-compress";
+  }
+
   render() {
     return (
       <div>
         <Wrap type="editor" maximized={this.state.editorMaximized} hide={this.state.hideEditor}>
           <Toolbar 
-            icon="fa fa-arrows-alt" text="Editor"
+            icon={this.getIconClass(this.state.editorMaximized)} text="Editor"
             onClick={this.handleEditorMaximize}/>
           <Editor markdown={this.state.markdown}/>
         </Wrap>
         <Wrap type="preview" maximized={this.state.previewMaximized} hide={this.state.hidePreviewer}>
-          <Toolbar icon="fa fa-arrows-alt" text="Previewer"
+          <Toolbar icon={this.getIconClass(this.state.previewMaximized)} text="Previewer"
             onClick={this.handlePreviewMaximize}/>
         </Wrap>
       </div>
