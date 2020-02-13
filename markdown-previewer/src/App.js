@@ -105,15 +105,18 @@ class App extends Component {
   }
 
   handleEditorMaximize() {
+    const newValue = !this.state.editorMaximized;
     this.setState({
-      editorMaximized: !this.state.editorMaximized
+      hidePreviewer: newValue,
+      editorMaximized: newValue
     });
-    
   }
 
   handlePreviewMaximize() {
+    const newValue = !this.state.previewMaximized;
     this.setState({
-      previewMaximized: !this.state.previewMaximized
+      hideEditor: newValue,
+      previewMaximized: newValue
     });
   }
 
