@@ -136,6 +136,7 @@ class App extends Component {
         <Wrap type="preview" maximized={this.state.previewMaximized} hide={this.state.hidePreviewer}>
           <Toolbar icon={this.getIconClass(this.state.previewMaximized)} text="Previewer"
             onClick={this.handlePreviewMaximize}/>
+            <p style={{ color: 'white' }}>{this.state.markdown}</p>
         </Wrap>
       </div>
     )
