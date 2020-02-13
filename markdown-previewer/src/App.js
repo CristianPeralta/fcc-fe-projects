@@ -24,7 +24,12 @@ const Wrap = (props) => {
 };
 
 class App extends Component {
-
+  constructor(props) {
+    this.state = {
+      editorMaximized: false,
+      previewMaximized: false
+    };
+  }
   render() {
     return (
       <div>
