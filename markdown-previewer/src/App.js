@@ -19,8 +19,8 @@ function App() {
                 Editor
         </Toolbar>
       </div>
-      <div className="previewWrap">
-        <Toolbar icon="editorWrap maximized">
+      <div className="editorWrap maximized">
+        <Toolbar icon="'fa fa-arrows-alt">
               Previewer
         </Toolbar>
       </div>
