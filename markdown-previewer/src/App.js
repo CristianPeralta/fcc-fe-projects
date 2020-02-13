@@ -119,6 +119,7 @@ class App extends Component {
     };
     this.handleEditorMaximize = this.handleEditorMaximize.bind(this);
     this.handlePreviewMaximize = this.handlePreviewMaximize.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleEditorMaximize() {
@@ -137,6 +138,12 @@ class App extends Component {
     });
   }
 
+  handleChange(e) {
+    this.setState({
+      markdown: e.target.value
+    });
+  }
+
   getIconClass (isMaxizimed) {
     return isMaxizimed ? "fa fa-arrows-alt" : "fa fa-compress";
   }
@@ -148,7 +155,7 @@ class App extends Component {
           <Toolbar 
             icon={this.getIconClass(this.state.editorMaximized)} text="Editor"
             onClick={this.handleEditorMaximize}/>
-          <Editor markdown={this.state.markdown}/>
+          <Editor markdown={this.state.markdown} handleChange={this.handleChange}/>
         </Wrap>
         <Wrap type="preview" maximized={this.state.previewMaximized} hide={this.state.hidePreviewer}>
           <Toolbar icon={this.getIconClass(this.state.previewMaximized)} text="Previewer"
