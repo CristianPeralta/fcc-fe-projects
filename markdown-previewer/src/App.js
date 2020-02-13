@@ -27,6 +27,7 @@ const Editor = (props) => {
   return (
     <textarea id="editor"
       value={props.markdown}
+      onChange={props.handleChange}
       type="text"/>
     )
 };
@@ -88,6 +89,8 @@ class App extends Component {
       editorMaximized: false,
       previewMaximized: false
     };
+    this.handleEditorMaximize = this.handleEditorMaximize.bind(this);
+    this.handlePreviewMaximize = this.handlePreviewMaximize.bind(this);
   }
 
   handleEditorMaximize() {
@@ -106,11 +109,14 @@ class App extends Component {
     return (
       <div>
         <Wrap type="editor">
-          <Toolbar icon="fa fa-arrows-alt" text="Editor"/>
+          <Toolbar 
+            icon="fa fa-arrows-alt" text="Editor"
+            onClick={this.handleEditorMaximize}/>
           <Editor markdown={this.state.markdown}/>
         </Wrap>
         <Wrap type="preview">
-          <Toolbar icon="fa fa-compress" text="Previewer"/>
+          <Toolbar icon="fa fa-compress" text="Previewer"
+            onClick={this.handlePreviewMaximize}/>
         </Wrap>
       </div>
     )
