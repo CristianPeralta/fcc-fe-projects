@@ -68,6 +68,7 @@
 	 min-height: 200px;
 	 overflow-wrap: break-word;
 	 padding-right: 20px;
+	 color: white
 }
  .previewWrap .toolbar {
 	 left: -1px;
@@ -132,6 +133,7 @@
 	 padding: 1px 4px 2px 4px;
 	 font-size: 12px;
 	 font-weight: bold;
+	 color: black
 }
  #preview pre {
 	 background: white;

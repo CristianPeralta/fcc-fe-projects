@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import marked from 'marked';
 import './App.css';
 
 function classList(classes) {
@@ -7,6 +8,16 @@ function classList(classes) {
     .filter(entry => entry[1])
     .map(entry => entry[0])
     .join(' ');
+}
+
+marked.setOptions({
+  breaks: true,
+});
+
+const renderer = new marked.Renderer();
+
+renderer.link = function (href, title, text) {
+  return `<a target="_blank" href="${href}">${text}` + '</a>';
 }
 
 const Toolbar = (props) => {
@@ -42,6 +53,12 @@ const Editor = (props) => {
       type="text"/>
     )
 };
+
+const Preview = (props) => {
+  return (
+      <div id='preview' dangerouslySetInnerHTML={{__html: marked(props.markdown, { renderer: renderer })}} />
+    )
+}
 
 const placeholder = 
 `# Welcome to my React Markdown Previewer!
@@ -136,7 +153,7 @@ class App extends Component {
         <Wrap type="preview" maximized={this.state.previewMaximized} hide={this.state.hidePreviewer}>
           <Toolbar icon={this.getIconClass(this.state.previewMaximized)} text="Previewer"
             onClick={this.handlePreviewMaximize}/>
-            <p style={{ color: 'white' }}>{this.state.markdown}</p>
+            <Preview markdown={this.state.markdown}></Preview>
         </Wrap>
       </div>
     )
