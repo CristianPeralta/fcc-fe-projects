@@ -15,13 +15,11 @@ function App() {
   return (
     <div>
       <div className="editorWrap maximized">
-        <p>Toolbar + Editor</p>
         <Toolbar icon="fa fa-arrows-alt">
                 Editor
         </Toolbar>
       </div>
       <div className="previewWrap">
-        <p>Toolbar + Previewer</p>
         <Toolbar icon="editorWrap maximized">
               Previewer
         </Toolbar>
