@@ -11,19 +11,29 @@ const Toolbar = (props) => {
  )
 };
 
+const Wrap = (props) => {
+  const classByType = {
+    editor: "editorWrap",
+    preview: "previewWrap",
+  }
+  return (
+    <div className={classByType[props.type]}>
+      {props.children}
+    </div>
+  )
+};
+
 class App extends Component {
 
   render() {
     return (
       <div>
-        <div className="editorWrap maximized">
-          <Toolbar icon="fa fa-arrows-alt" text="Editor">
-          </Toolbar>
-        </div>
-        <div className="previewWrap maximized">
-          <Toolbar icon="'fa fa-arrows-alt" text="Previewer">
-          </Toolbar>
-        </div>
+        <Wrap type="editor">
+          <Toolbar icon="fa fa-arrows-alt" text="Editor"/>
+        </Wrap>
+        <Wrap type="preview">
+          <Toolbar icon="fa fa-compress" text="Previewer"/>
+        </Wrap>
       </div>
     )
   }
