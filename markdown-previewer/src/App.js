@@ -23,6 +23,14 @@ const Wrap = (props) => {
   )
 };
 
+const Editor = (props) => {
+  return (
+    <textarea id="editor"
+      value={props.markdown}
+      type="text"/>
+    )
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -43,12 +51,13 @@ class App extends Component {
       previewMaximized: !this.state.previewMaximized
     });
   }
-  
+
   render() {
     return (
       <div>
         <Wrap type="editor">
           <Toolbar icon="fa fa-arrows-alt" text="Editor"/>
+          <Editor markdown="Hello World!"/>
         </Wrap>
         <Wrap type="preview">
           <Toolbar icon="fa fa-compress" text="Previewer"/>
