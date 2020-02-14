@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const Logo = (props) => {
+  return (
+    <div className="logo">
+      <div className="inner-logo ">{'FCC (CPS)' + String.fromCharCode(160)}</div>
+      <i className="inner-logo fa fa-free-code-camp" />
+    </div>
+  );
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -13,9 +22,7 @@ class App extends Component {
           PAD BANK
         </div>
         
-        <div className="logo">
-          LOGO
-        </div>
+        <Logo />
 
         <div className="controls-container">
           CONTROL CONTAINER
