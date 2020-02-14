@@ -39,6 +39,7 @@ class App extends Component {
   }
 
   bankGroupControl() {
+    if (!this.state.power) return;
     let defaultGroup = 'Heater Kit';
     this.setState({
       currentPadBankGroup: this.state.currentPadBankGroup === defaultGroup ? 'Smooth Piano Kit' : defaultGroup
@@ -57,8 +58,7 @@ class App extends Component {
         <Logo />
 
         <div className="controls-container">
-          CONTROL CONTAINER
-          <Control name="POWER" slider={powerSlider} changeControlStatus={this.powerControl}/>
+          <Control name="POWER" slider={powerSlider} changeControlStatus={this.powerControl} />
           <Control name="BANK" slider={bankSlider} changeControlStatus={this.bankGroupControl} />
         </div>
 
