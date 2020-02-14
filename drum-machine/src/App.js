@@ -26,7 +26,8 @@ class App extends Component {
     super(props);
     this.state = {
       power: true,
-      currentPadBankGroup: 'Heater Kit'
+      currentPadBankGroup: 'Heater Kit',
+      display: 'Heater Kit'
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
@@ -59,6 +60,9 @@ class App extends Component {
 
         <div className="controls-container">
           <Control name="POWER" slider={powerSlider} changeControlStatus={this.powerControl} />
+          <p id="display">
+						{this.state.display}
+					</p>
           <Control name="BANK" slider={bankSlider} changeControlStatus={this.bankGroupControl} />
         </div>
 
