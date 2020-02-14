@@ -7,22 +7,20 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <div id="drum-machine" className="inner-container">
+      <div id="drum-machine" className="inner-container">
 
-          <div className="pad-bank">
-            PAD BANK
-          </div>
-          
-          <div className="logo">
-            LOGO
-          </div>
-
-          <div className="controls-container">
-            CONTROL CONTAINER
-          </div>
-
+        <div className="pad-bank">
+          PAD BANK
         </div>
+        
+        <div className="logo">
+          LOGO
+        </div>
+
+        <div className="controls-container">
+          CONTROL CONTAINER
+        </div>
+
       </div>
     )
   }
