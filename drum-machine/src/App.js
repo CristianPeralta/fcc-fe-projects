@@ -14,7 +14,7 @@ const Control = (props) => {
   return (
     <div className="control">
       <p>{props.name}</p>
-      <div className="select">
+      <div onClick={props.changeControlStatus} className="select">
         <div style={props.slider} className="inner" />
       </div>
     </div>
@@ -28,10 +28,25 @@ class App extends Component {
       power: true,
       currentPadBankGroup: 'Heater Kit'
     }
+    this.powerControl = this.powerControl.bind(this);
+    this.bankGroupControl = this.bankGroupControl.bind(this);
+  }
+
+  powerControl() {
+    this.setState({
+      power: !this.state.power
+    });
+  }
+
+  bankGroupControl() {
+    let defaultGroup = 'Heater Kit';
+    this.setState({
+      currentPadBankGroup: this.state.currentPadBankGroup === defaultGroup ? 'Smooth Piano Kit' : defaultGroup
+    });
   }
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
-    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'rightlefy' }) :  ({ float: 'right' });;
+    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });;
     return (
       <div id="drum-machine" className="inner-container">
 
@@ -43,8 +58,8 @@ class App extends Component {
 
         <div className="controls-container">
           CONTROL CONTAINER
-          <Control name="POWER" slider={powerSlider} />
-          <Control name="BANK" slider={bankSlider} />
+          <Control name="POWER" slider={powerSlider} changeControlStatus={this.powerControl}/>
+          <Control name="BANK" slider={bankSlider} changeControlStatus={this.bankGroupControl} />
         </div>
 
       </div>
