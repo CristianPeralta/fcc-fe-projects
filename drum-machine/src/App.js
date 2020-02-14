@@ -24,9 +24,14 @@ const Control = (props) => {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      power: true,
+      currentPadBankGroup: 'Heater Kit'
+    }
   }
   render() {
-    const sliderStyle = { float: 'right' };
+    const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
+    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'rightlefy' }) :  ({ float: 'right' });;
     return (
       <div id="drum-machine" className="inner-container">
 
@@ -38,8 +43,8 @@ class App extends Component {
 
         <div className="controls-container">
           CONTROL CONTAINER
-          <Control name="POWERr" slider={sliderStyle} />
-          <Control name="BANK" slider={sliderStyle} />
+          <Control name="POWER" slider={powerSlider} />
+          <Control name="BANK" slider={bankSlider} />
         </div>
 
       </div>
