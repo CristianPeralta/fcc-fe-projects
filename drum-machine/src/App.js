@@ -27,7 +27,7 @@ class App extends Component {
     this.state = {
       power: true,
       currentPadBankGroup: 'Heater Kit',
-      display: 'Heater Kit'
+      display: String.fromCharCode(160)
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
@@ -35,7 +35,8 @@ class App extends Component {
 
   powerControl() {
     this.setState({
-      power: !this.state.power
+      power: !this.state.power,
+      display: String.fromCharCode(160)
     });
   }
 
