@@ -10,11 +10,23 @@ const Logo = (props) => {
   );
 };
 
+const Control = (props) => {
+  return (
+    <div className="control">
+      <p>{props.name}</p>
+      <div className="select">
+        <div style={props.slider} className="inner" />
+      </div>
+    </div>
+  );
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const sliderStyle = { float: 'right' };
     return (
       <div id="drum-machine" className="inner-container">
 
@@ -26,6 +38,8 @@ class App extends Component {
 
         <div className="controls-container">
           CONTROL CONTAINER
+          <Control name="POWERr" slider={sliderStyle} />
+          <Control name="BANK" slider={sliderStyle} />
         </div>
 
       </div>
