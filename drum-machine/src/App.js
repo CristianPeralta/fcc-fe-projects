@@ -1,13 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="App">
+        <div id="drum-machine" className="inner-container">
 
-    </div>
-  );
+          <div className="pad-bank">
+            PAD BANK
+          </div>
+          
+          <div className="logo">
+            LOGO
+          </div>
+
+          <div className="controls-container">
+            CONTROL CONTAINER
+          </div>
+
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;

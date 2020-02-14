@@ -6,12 +6,6 @@
 	 user-select: none;
 	 background-color: #8d8d8d;
 }
- #App {
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
-	 height: 100vh;
-}
  .inner-container {
 	 outline: 5px solid orange;
 	 position: relative;
