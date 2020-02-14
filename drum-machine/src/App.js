@@ -42,8 +42,10 @@ class App extends Component {
   bankGroupControl() {
     if (!this.state.power) return;
     let defaultGroup = 'Heater Kit';
+    const name = this.state.currentPadBankGroup === defaultGroup ? 'Smooth Piano Kit' : defaultGroup;
     this.setState({
-      currentPadBankGroup: this.state.currentPadBankGroup === defaultGroup ? 'Smooth Piano Kit' : defaultGroup
+      currentPadBankGroup: name,
+      display: name,
     });
   }
   render() {
