@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import data from '../src/resources/data';
 import './App.css';
 
 const Logo = (props) => {
