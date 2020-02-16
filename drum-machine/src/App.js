@@ -30,7 +30,11 @@ class PadBank extends Component {
     return (
       <div className="pad-bank" >
         {(
-          <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />
+          data.map((pad) => {
+            return (
+              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />    
+            )
+          })
         )}
       </div>
     );
@@ -108,7 +112,7 @@ class App extends Component {
 
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
-    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });;
+    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });
     return (
       <div id="drum-machine" className="inner-container">
 
