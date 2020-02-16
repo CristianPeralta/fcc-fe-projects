@@ -22,6 +22,21 @@ const Control = (props) => {
   );
 };
 
+class PadBank extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="pad-bank" >
+        {(
+          <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />
+        )}
+      </div>
+    );
+  };
+}
+
 const pad = {
   keyCode: 81,
   keyTrigger: 'Q',
@@ -44,8 +59,8 @@ class DrumPad extends Component {
     this.playSound = this.playSound.bind(this);
   }
 
-  playSound(keyTrigger) {
-    const sound = document.getElementById(keyTrigger);
+  playSound() {
+    const sound = document.getElementById(this.props.keyTrigger);
     sound.currentTime = 0;
     sound.play();
   }
@@ -53,7 +68,7 @@ class DrumPad extends Component {
     return (
       <div id={this.props.padId}
         className="drum-pad"
-        onClick={() => this.playSound(this.props.keyTrigger)}
+        onClick={this.playSound}
         style={this.state.padStyle} >
           <audio className='clip' id={this.props.keyTrigger} src={this.props.url}></audio>
           {this.props.keyTrigger}
@@ -97,14 +112,7 @@ class App extends Component {
     return (
       <div id="drum-machine" className="inner-container">
 
-        <div className="pad-bank">
-          PAD BANK
-          <div className="pad-bank" >
-            {(
-              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />
-            )}
-          </div>
-        </div>
+        <PadBank />
 
         <Logo />
 
