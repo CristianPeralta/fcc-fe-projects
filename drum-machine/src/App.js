@@ -32,7 +32,7 @@ class PadBank extends Component {
         {(
           data.map((pad) => {
             return (
-              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />    
+              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} keyCode={pad.keyCode} url={pad.url} />
             )
           })
         )}
@@ -40,13 +40,6 @@ class PadBank extends Component {
     );
   };
 }
-
-const pad = {
-  keyCode: 81,
-  keyTrigger: 'Q',
-  id: 'Heater-1',
-  url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
-};
 
 const inactiveStyle = {
   backgroundColor: 'grey',
@@ -61,12 +54,27 @@ class DrumPad extends Component {
       padStyle: inactiveStyle,
     }
     this.playSound = this.playSound.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
   }
 
   playSound() {
     const sound = document.getElementById(this.props.keyTrigger);
     sound.currentTime = 0;
     sound.play();
+  }
+
+  handleKeyPress(e) {
+    if (e.keyCode === this.props.keyCode) {
+      this.playSound();
+    }
   }
   render() {
     return (
