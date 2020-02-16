@@ -35,18 +35,43 @@ const inactiveStyle = {
   boxShadow: "3px 3px 5px black"
 };
 
+class DrumPad extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      padStyle: inactiveStyle,
+    }
+    this.playSound = this.playSound.bind(this);
+  }
+
+  playSound(keyTrigger) {
+    const sound = document.getElementById(keyTrigger);
+    sound.currentTime = 0;
+    sound.play();
+  }
+  render() {
+    return (
+      <div id={this.props.padId}
+        className="drum-pad"
+        onClick={() => this.playSound(this.props.keyTrigger)}
+        style={this.state.padStyle} >
+          <audio className='clip' id={this.props.keyTrigger} src={this.props.url}></audio>
+          {this.props.keyTrigger}
+      </div>
+    );
+  };
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       power: true,
       currentPadBankGroup: 'Heater Kit',
-      display: String.fromCharCode(160),
-      padStyle: inactiveStyle,
+      display: String.fromCharCode(160)
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
-    this.playSound = this.playSound.bind(this);
   }
 
   powerControl() {
@@ -66,11 +91,6 @@ class App extends Component {
     });
   }
 
-  playSound(keyTrigger) {
-    const sound = document.getElementById(keyTrigger);
-    sound.currentTime = 0;
-    sound.play();
-  }
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
     const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });;
@@ -81,13 +101,7 @@ class App extends Component {
           PAD BANK
           <div className="pad-bank" >
             {(
-              <div id={pad.id}
-                className="drum-pad"
-                onClick={() => this.playSound(pad.keyTrigger)}
-                style={this.state.padStyle} >
-                  <audio className='clip' id={pad.keyTrigger} src={pad.url}></audio>
-                  {pad.keyTrigger}
-              </div>
+              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} url={pad.url} />
             )}
           </div>
         </div>
