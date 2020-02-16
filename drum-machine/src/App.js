@@ -45,6 +45,7 @@ class App extends Component {
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
+    this.playSound = this.playSound.bind(this);
   }
 
   powerControl() {
@@ -63,6 +64,12 @@ class App extends Component {
       display: name,
     });
   }
+
+  playSound(keyTrigger) {
+    const sound = document.getElementById(keyTrigger);
+    sound.currentTime = 0;
+    sound.play();
+  }
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
     const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });;
@@ -75,6 +82,7 @@ class App extends Component {
             {(
               <div id={pad.id}
                 className="drum-pad"
+                onClick={() => this.playSound(pad.keyTrigger)}
                 style={this.state.padStyle} >
                   <audio className='clip' id={pad.keyTrigger} src={pad.url}></audio>
                   {pad.keyTrigger}
