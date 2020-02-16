@@ -32,7 +32,7 @@ class PadBank extends Component {
         {(
           data.map((pad) => {
             return (
-              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} keyCode={pad.keyCode} url={pad.url} updateDisplay={this.props.updateDisplay} />
+              <DrumPad power={this.props.power} padId={pad.id} keyTrigger={pad.keyTrigger} keyCode={pad.keyCode} url={pad.url} updateDisplay={this.props.updateDisplay} />
             )
           })
         )}
@@ -66,6 +66,7 @@ class DrumPad extends Component {
   }
 
   playSound() {
+    if (!this.props.power) return;
     const sound = document.getElementById(this.props.keyTrigger);
     sound.currentTime = 0;
     sound.play();
@@ -95,11 +96,9 @@ class App extends Component {
     super(props);
     this.state = {
       power: true,
-      currentPadBankGroup: 'Heater Kit',
       display: String.fromCharCode(160)
     }
     this.powerControl = this.powerControl.bind(this);
-    this.bankGroupControl = this.bankGroupControl.bind(this);
     this.displayClipName = this.displayClipName.bind(this);
   }
 
@@ -107,16 +106,6 @@ class App extends Component {
     this.setState({
       power: !this.state.power,
       display: String.fromCharCode(160)
-    });
-  }
-
-  bankGroupControl() {
-    if (!this.state.power) return;
-    let defaultGroup = 'Heater Kit';
-    const name = this.state.currentPadBankGroup === defaultGroup ? 'Smooth Piano Kit' : defaultGroup;
-    this.setState({
-      currentPadBankGroup: name,
-      display: name,
     });
   }
 
@@ -130,11 +119,10 @@ class App extends Component {
 
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
-    const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });
     return (
       <div id="drum-machine" className="inner-container">
 
-        <PadBank updateDisplay={this.displayClipName}/>
+        <PadBank updateDisplay={this.displayClipName} power={this.state.power}/>
 
         <Logo />
 
@@ -142,8 +130,7 @@ class App extends Component {
           <Control name="POWER" slider={powerSlider} changeControlStatus={this.powerControl} />
           <p id="display">
 						{this.state.display}
-					</p>
-          <Control name="BANK" slider={bankSlider} changeControlStatus={this.bankGroupControl} />
+          </p>
         </div>
 
       </div>
