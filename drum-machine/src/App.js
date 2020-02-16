@@ -32,7 +32,7 @@ class PadBank extends Component {
         {(
           data.map((pad) => {
             return (
-              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} keyCode={pad.keyCode} url={pad.url} />
+              <DrumPad padId={pad.id} keyTrigger={pad.keyTrigger} keyCode={pad.keyCode} url={pad.url} updateDisplay={this.props.updateDisplay} />
             )
           })
         )}
@@ -69,6 +69,7 @@ class DrumPad extends Component {
     const sound = document.getElementById(this.props.keyTrigger);
     sound.currentTime = 0;
     sound.play();
+    this.props.updateDisplay(this.props.padId.replace(/-/g, ' '));
   }
 
   handleKeyPress(e) {
@@ -99,6 +100,7 @@ class App extends Component {
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
+    this.displayClipName = this.displayClipName.bind(this);
   }
 
   powerControl() {
@@ -118,13 +120,21 @@ class App extends Component {
     });
   }
 
+  displayClipName(name) {
+    if (this.state.power) {
+      this.setState({
+        display: name
+      });
+    }
+  }
+
   render() {
     const powerSlider = this.state.power ? ({ float: 'right' }) :  ({ float: 'left' });
     const bankSlider = this.state.currentPadBankGroup === 'Heater Kit' ? ({ float: 'left' }) :  ({ float: 'right' });
     return (
       <div id="drum-machine" className="inner-container">
 
-        <PadBank />
+        <PadBank updateDisplay={this.displayClipName}/>
 
         <Logo />
 
