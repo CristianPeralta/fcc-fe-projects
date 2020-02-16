@@ -21,13 +21,27 @@ const Control = (props) => {
   );
 };
 
+const pad = {
+  keyCode: 81,
+  keyTrigger: 'Q',
+  id: 'Heater-1',
+  url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+};
+
+const inactiveStyle = {
+  backgroundColor: 'grey',
+  marginTop: 10,
+  boxShadow: "3px 3px 5px black"
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       power: true,
       currentPadBankGroup: 'Heater Kit',
-      display: String.fromCharCode(160)
+      display: String.fromCharCode(160),
+      padStyle: inactiveStyle,
     }
     this.powerControl = this.powerControl.bind(this);
     this.bankGroupControl = this.bankGroupControl.bind(this);
@@ -57,8 +71,18 @@ class App extends Component {
 
         <div className="pad-bank">
           PAD BANK
+          <div className="pad-bank" >
+            {(
+              <div id={pad.id}
+                className="drum-pad"
+                style={this.state.padStyle} >
+                  <audio className='clip' id={pad.keyTrigger} src={pad.url}></audio>
+                  {pad.keyTrigger}
+              </div>
+            )}
+          </div>
         </div>
-        
+
         <Logo />
 
         <div className="controls-container">
