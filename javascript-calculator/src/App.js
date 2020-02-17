@@ -37,7 +37,7 @@ class Buttons extends Component {
           value: 'AC',
           style: clearStyle,
           action: this.props.initialize,
-          class: 'jumbo'
+          className: 'jumbo'
         },
         {
           key: 'divide',
@@ -111,7 +111,7 @@ class Buttons extends Component {
         {
           key: 'zero',
           value: '0',
-          class: 'jumbo'
+          className: 'jumbo'
         },
         {
           key: 'decimal',
@@ -129,15 +129,12 @@ class Buttons extends Component {
   render() {
     return (
       <div>
-        {this.state.buttonList.map(el => {
+        {this.state.buttonList.map(element => {
           return (
-            <button 
-              key={el.key}
-              id={el.key}
-              className={el.class}
-              style={el.style}
-              value={el.value}
-              >{el.value}</button>
+            <button
+              id={element.key}
+              {...element}
+              >{element.value}</button>
           )
         })}
       </div>
