@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="calculator">
+          <p style={{ color: 'white' }}>CALCULATOR</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
