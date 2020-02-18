@@ -25,6 +25,7 @@ class App extends Component {
     };
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
+    this.handleEvaluate = this.handleEvaluate.bind(this);
     this.initialize = this.initialize.bind(this);
   }
 
@@ -67,6 +68,23 @@ class App extends Component {
     }
   }
 
+  handleEvaluate() {
+    let expression = this.state.formula;
+    while (endsWithOperator.test(expression)) {
+      expression = expression.slice(0, -1);
+    }
+    expression = expression.replace(/x/g, "*").replace(/‑/g, "-");
+    let answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
+    console.log("answer", answer);
+    this.setState({
+      currentVal: answer.toString(),
+      formula:
+        expression.replace(/\*/g, "⋅").replace(/-/g, "‑") + "=" + answer,
+      prevVal: answer,
+      evaluated: true
+    });
+  }
+
   initialize() {
     this.setState({
       currentVal: "0",
@@ -85,6 +103,7 @@ class App extends Component {
           <Buttons 
             numbers={this.handleNumbers}
             operators={this.handleOperators}
+            evaluate={this.handleEvaluate}
             initialize={this.initialize}
           />
         </div>
@@ -188,7 +207,7 @@ class Buttons extends Component {
           key: 'equals',
           value: '=',
           style: equalsStyle,
-          onClick: this.props.operators,
+          onClick: this.props.evaluate,
         }
       ],
     }
