@@ -17,6 +17,7 @@ class App extends Component {
       currentVal: "0",
     };
     this.handleNumbers = this.handleNumbers.bind(this);
+    this.initialize = this.initialize.bind(this);
   }
 
   handleNumbers(e) {
@@ -27,6 +28,12 @@ class App extends Component {
     });
   }
 
+  initialize() {
+    this.setState({
+      currentVal: "0"
+    });
+  }
+
   render() {
     return (
       <div>
@@ -34,6 +41,7 @@ class App extends Component {
           <Output currentValue={this.state.currentVal} />
           <Buttons 
             numbers={this.handleNumbers}
+            initialize={this.initialize}
           />
         </div>
       </div>
