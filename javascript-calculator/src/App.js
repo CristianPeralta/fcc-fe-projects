@@ -13,13 +13,16 @@ const equalsStyle = {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentVal: "0",
+    }
   }
 
   render() {
     return (
       <div>
         <div className="calculator">
-          <p style={{ color: 'white' }}>CALCULATOR</p>
+          <Output currentValue={this.state.currentVal} />
           <Buttons />
         </div>
       </div>
@@ -142,4 +145,13 @@ class Buttons extends Component {
   }
 }
 
+class Output extends Component {
+  render() {
+    return (
+      <div className="outputScreen" id="display">
+        {this.props.currentValue}
+      </div>
+    );
+  }
+}
 export default App;
