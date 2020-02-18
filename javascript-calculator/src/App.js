@@ -3,6 +3,8 @@ import './App.css';
 
 
 const isOperator = /[x/+‑]/;
+const endsWithOperator = /[x+-/]$/;
+const endsWithNegativeSign = /[x/+]-$/;
 const clearStyle = { background: "#ac3939" };
 const operatorStyle = { background: "#666666" };
 const equalsStyle = {
@@ -17,7 +19,9 @@ class App extends Component {
     super(props);
     this.state = {
       currentVal: "0",
-      formula: ""
+      prevVal: "0",
+      formula: "",
+      evaluated: false
     };
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
@@ -39,18 +43,36 @@ class App extends Component {
   }
 
   handleOperators(e) {
-    const { formula } = this.state;
+    const { formula, prevVal, evaluated } = this.state;
     const { value } = e.target;
-    this.setState({
-      currentVal: value,
-      formula: formula + value
-    });
+    this.setState({ currentVal: value, evaluated: false });
+
+    if (evaluated) {
+      this.setState({ formula: prevVal + value });
+    } else if (!endsWithOperator.test(formula)) {
+      this.setState({
+        prevVal: formula,
+        formula: formula + value
+      });
+    } else if (!endsWithNegativeSign.test(formula)) {
+      this.setState({
+        formula:
+          (endsWithNegativeSign.test(formula + value) ? formula : prevVal) +
+          value
+      });
+    } else if (value !== "‑") {
+      this.setState({
+        formula: prevVal + value
+      });
+    }
   }
 
   initialize() {
     this.setState({
       currentVal: "0",
-      formula: ""
+      prevVal: "0",
+      formula: "",
+      evaluated: false
     });
   }
 
@@ -91,7 +113,7 @@ class Buttons extends Component {
         },
         {
           key: 'multiply',
-          value: '*',
+          value: 'x',
           style: operatorStyle,
           onClick: this.props.operators,
         },
