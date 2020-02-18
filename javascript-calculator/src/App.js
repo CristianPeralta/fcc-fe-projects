@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
+const isOperator = /[x/+‑]/;
 const clearStyle = { background: "#ac3939" };
 const operatorStyle = { background: "#666666" };
 const equalsStyle = {
@@ -26,7 +28,8 @@ class App extends Component {
     const { currentVal, formula } = this.state;
     const { value } = e.target;
     this.setState({
-      currentVal: currentVal === "0" ? value : currentVal + value,
+      currentVal: currentVal === "0" || isOperator.test(currentVal)
+        ? value : currentVal + value,
       formula: currentVal === "0" && value === "0"
               ? formula === "" ? value : formula
               : /([^.0-9]0|^0)$/.test(formula)
@@ -36,13 +39,18 @@ class App extends Component {
   }
 
   handleOperators(e) {
+    const { formula } = this.state;
     const { value } = e.target;
-    this.setState({ currentVal: value });
+    this.setState({
+      currentVal: value,
+      formula: formula + value
+    });
   }
 
   initialize() {
     this.setState({
-      currentVal: "0"
+      currentVal: "0",
+      formula: ""
     });
   }
 
