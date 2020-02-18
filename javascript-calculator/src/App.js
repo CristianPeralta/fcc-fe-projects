@@ -24,6 +24,7 @@ class App extends Component {
       evaluated: false
     };
     this.handleNumbers = this.handleNumbers.bind(this);
+    this.handleDecimal = this.handleDecimal.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
     this.handleEvaluate = this.handleEvaluate.bind(this);
     this.initialize = this.initialize.bind(this);
@@ -68,6 +69,36 @@ class App extends Component {
     }
   }
 
+  handleDecimal() {
+    if (this.state.evaluated === true) {
+      this.setState({
+        currentVal: "0.",
+        formula: "0.",
+        evaluated: false
+      });
+    } else if (
+      !this.state.currentVal.includes(".")
+    ) {
+      this.setState({ evaluated: false });
+      if (this.state.currentVal.length > 21) {
+        this.maxDigitWarning();
+      } else if (
+        endsWithOperator.test(this.state.formula) ||
+        (this.state.currentVal === "0" && this.state.formula === "")
+      ) {
+        this.setState({
+          currentVal: "0.",
+          formula: this.state.formula + "0."
+        });
+      } else {
+        this.setState({
+          currentVal: this.state.formula.match(/(-?\d+\.?\d*)$/)[0] + ".",
+          formula: this.state.formula + "."
+        });
+      }
+    }
+  }
+
   handleEvaluate() {
     let expression = this.state.formula;
     while (endsWithOperator.test(expression)) {
@@ -75,7 +106,6 @@ class App extends Component {
     }
     expression = expression.replace(/x/g, "*").replace(/‑/g, "-");
     let answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
-    console.log("answer", answer);
     this.setState({
       currentVal: answer.toString(),
       formula:
@@ -104,6 +134,7 @@ class App extends Component {
             numbers={this.handleNumbers}
             operators={this.handleOperators}
             evaluate={this.handleEvaluate}
+            decimal={this.handleDecimal}
             initialize={this.initialize}
           />
         </div>
@@ -202,6 +233,7 @@ class Buttons extends Component {
         {
           key: 'decimal',
           value: '.',
+          onClick: this.props.decimal
         },
         {
           key: 'equals',
