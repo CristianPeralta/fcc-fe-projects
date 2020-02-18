@@ -20,9 +20,11 @@ class App extends Component {
   }
 
   handleNumbers(e) {
+    const { currentVal } = this.state;
+    const { value } = e.target;
     this.setState({
-      currentVal: e.target.value
-    })
+      currentVal: currentVal === "0" ? value : currentVal + value
+    });
   }
 
   render() {
@@ -123,6 +125,7 @@ class Buttons extends Component {
         {
           key: 'zero',
           value: '0',
+          onClick: this.props.numbers,
           className: 'jumbo'
         },
         {
