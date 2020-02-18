@@ -15,7 +15,14 @@ class App extends Component {
     super(props);
     this.state = {
       currentVal: "0",
-    }
+    };
+    this.handleNumbers = this.handleNumbers.bind(this);
+  }
+
+  handleNumbers(e) {
+    this.setState({
+      currentVal: e.target.value
+    })
   }
 
   render() {
@@ -23,7 +30,9 @@ class App extends Component {
       <div>
         <div className="calculator">
           <Output currentValue={this.state.currentVal} />
-          <Buttons />
+          <Buttons 
+            numbers={this.handleNumbers}
+          />
         </div>
       </div>
     );
@@ -39,77 +48,77 @@ class Buttons extends Component {
           key: 'clear',
           value: 'AC',
           style: clearStyle,
-          action: this.props.initialize,
+          onClick: this.props.initialize,
           className: 'jumbo'
         },
         {
           key: 'divide',
           value: '/',
           style: operatorStyle,
-          action: this.props.operators
+          onClick: this.props.operators
         },
         {
           key: 'multiply',
           value: '*',
           style: operatorStyle,
-          action: this.props.operators,
+          onClick: this.props.operators,
         },
         {
           key: 'seven',
           value: '7',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'eight',
           value: '8',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'nine',
           value: '9',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'subtract',
           value: '-',
           style: operatorStyle,
-          action: this.props.operators,
+          onClick: this.props.operators,
         },
         {
           key: 'four',
           value: '4',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'five',
           value: '5',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'six',
           value: '6',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'add',
           value: '+',
           style: operatorStyle,
-          action: this.props.operators,
+          onClick: this.props.operators,
         },
         {
           key: 'one',
           value: '1',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'two',
           value: '2',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'three',
           value: '3',
-          action: this.props.numbers
+          onClick: this.props.numbers
         },
         {
           key: 'zero',
@@ -124,7 +133,7 @@ class Buttons extends Component {
           key: 'equals',
           value: '=',
           style: equalsStyle,
-          action: this.props.operators,
+          onClick: this.props.operators,
         }
       ],
     }
