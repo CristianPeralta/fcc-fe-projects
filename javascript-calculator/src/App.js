@@ -18,15 +18,26 @@ class App extends Component {
       formula: ""
     };
     this.handleNumbers = this.handleNumbers.bind(this);
+    this.handleOperators = this.handleOperators.bind(this);
     this.initialize = this.initialize.bind(this);
   }
 
   handleNumbers(e) {
-    const { currentVal } = this.state;
+    const { currentVal, formula } = this.state;
     const { value } = e.target;
     this.setState({
-      currentVal: currentVal === "0" ? value : currentVal + value
+      currentVal: currentVal === "0" ? value : currentVal + value,
+      formula: currentVal === "0" && value === "0"
+              ? formula === "" ? value : formula
+              : /([^.0-9]0|^0)$/.test(formula)
+                ? formula.slice(0, -1) + value
+                : formula + value
     });
+  }
+
+  handleOperators(e) {
+    const { value } = e.target;
+    this.setState({ currentVal: value });
   }
 
   initialize() {
@@ -43,6 +54,7 @@ class App extends Component {
           <Output currentValue={this.state.currentVal} />
           <Buttons 
             numbers={this.handleNumbers}
+            operators={this.handleOperators}
             initialize={this.initialize}
           />
         </div>
