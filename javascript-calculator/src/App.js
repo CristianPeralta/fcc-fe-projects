@@ -15,6 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentVal: "0",
+      formula: ""
     };
     this.handleNumbers = this.handleNumbers.bind(this);
     this.initialize = this.initialize.bind(this);
@@ -38,6 +39,7 @@ class App extends Component {
     return (
       <div>
         <div className="calculator">
+          <Formula formula={this.state.formula.replace(/x/g, "⋅")} />
           <Output currentValue={this.state.currentVal} />
           <Buttons 
             numbers={this.handleNumbers}
@@ -174,4 +176,11 @@ class Output extends Component {
     );
   }
 }
+
+class Formula extends Component {
+  render() {
+    return <div className="formulaScreen">{this.props.formula}</div>;
+  }
+}
+
 export default App;
