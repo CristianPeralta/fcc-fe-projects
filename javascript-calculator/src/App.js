@@ -85,9 +85,7 @@ class App extends Component {
       });
     } else if (!this.state.currentVal.includes(".")) {
       this.setState({ evaluated: false });
-      if (this.state.currentVal.length > 21) {
-        this.maxDigitWarning();
-      } else if (
+      if (
         endsWithOperator.test(this.state.formula) ||
         (this.state.currentVal === "0" && this.state.formula === "")
       ) {
