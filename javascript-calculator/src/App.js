@@ -104,11 +104,16 @@ class App extends Component {
 
   handleEvaluate() {
     let expression = this.state.formula;
+    const indexOfEqual = expression.indexOf("=");
+    if (indexOfEqual !== -1) {
+      expression = expression.slice(0, indexOfEqual);
+    }
     while (endsWithOperator.test(expression)) {
       expression = expression.slice(0, -1);
     }
     expression = expression.replace(/x/g, "*").replace(/‑/g, "-");
-    let answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
+    console.log('expression', expression);
+    const answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
     this.setState({
       currentVal: answer.toString(),
       formula:
