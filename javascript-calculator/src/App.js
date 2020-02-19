@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   handleDecimal() {
-    if (this.state.evaluated === true) {
+    if (this.state.evaluated) {
       this.setState({
         currentVal: "0.",
         formula: "0.",
@@ -112,7 +112,6 @@ class App extends Component {
       expression = expression.slice(0, -1);
     }
     expression = expression.replace(/x/g, "*").replace(/‑/g, "-");
-    console.log('expression', expression);
     const answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
     this.setState({
       currentVal: answer.toString(),
