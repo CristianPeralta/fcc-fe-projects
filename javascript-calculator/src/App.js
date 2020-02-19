@@ -31,17 +31,24 @@ class App extends Component {
   }
 
   handleNumbers(e) {
-    const { currentVal, formula } = this.state;
+    const { currentVal, formula, evaluated } = this.state;
     const { value } = e.target;
-    this.setState({
-      currentVal: currentVal === "0" || isOperator.test(currentVal)
-        ? value : currentVal + value,
-      formula: currentVal === "0" && value === "0"
-              ? formula === "" ? value : formula
-              : /([^.0-9]0|^0)$/.test(formula)
-                ? formula.slice(0, -1) + value
-                : formula + value
-    });
+    if (evaluated) {
+      this.setState({
+        currentVal: value,
+        formula: value !== "0" ? value : ""
+      });
+    } else {
+      this.setState({
+        currentVal: currentVal === "0" || isOperator.test(currentVal)
+          ? value : currentVal + value,
+        formula: currentVal === "0" && value === "0"
+                ? formula === "" ? value : formula
+                : /([^.0-9]0|^0)$/.test(formula)
+                  ? formula.slice(0, -1) + value
+                  : formula + value
+      });
+    }
   }
 
   handleOperators(e) {
@@ -76,9 +83,7 @@ class App extends Component {
         formula: "0.",
         evaluated: false
       });
-    } else if (
-      !this.state.currentVal.includes(".")
-    ) {
+    } else if (!this.state.currentVal.includes(".")) {
       this.setState({ evaluated: false });
       if (this.state.currentVal.length > 21) {
         this.maxDigitWarning();
