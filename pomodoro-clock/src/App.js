@@ -7,23 +7,31 @@ class App extends Component {
     this.state = {
       time: 60,
       timerType: 'Session',
+      timerState: 'stopped',
     };
-    this.startTimer = this.startTimer.bind(this)
-    this.stopTimer = this.stopTimer.bind(this)
-    this.resetTimer = this.resetTimer.bind(this)
+    this.startStopTimer = this.startStopTimer.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
   }
 
-  startTimer() {
-    this.timer = setInterval(() => this.setState({
-      time: this.state.time - 1
-    }), 1000)
+  startStopTimer() {
+    const currentTimerState = this.state.timerState === 'stopped';
+    if (currentTimerState) {
+      this.timer = setInterval(() => this.setState({
+        time: this.state.time - 1
+      }), 1000);
+    } else {
+      clearInterval(this.timer);
+    }
+    this.setState({
+      timerState: currentTimerState ? 'started' : 'stopped',
+    });
   }
-  stopTimer() {
-    clearInterval(this.timer)
-  }
+
   resetTimer() {
     this.setState({time: 60})
   }
+
+
   render() {
     return (
       <div className="app">
@@ -37,8 +45,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <button onClick={this.startTimer}>start</button>
-        <button onClick={this.stopTimer}>stop</button>
+        <button onClick={this.startStopTimer}>start|stop</button>
         <button onClick={this.resetTimer}>reset</button>
       </div>
     )
