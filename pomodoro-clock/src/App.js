@@ -5,11 +5,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: 60,
+      time: 1500,
       timerType: 'Session',
       timerState: 'stopped',
     };
     this.startStopTimer = this.startStopTimer.bind(this);
+    this.displayTimer = this.displayTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
   }
 
@@ -28,10 +29,16 @@ class App extends Component {
   }
 
   resetTimer() {
-    this.setState({time: 60})
+    this.setState({time: 1500})
   }
 
-
+  displayTimer() {
+    let minutes = Math.floor(this.state.time / 60);
+    let seconds = this.state.time - minutes * 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    return minutes + ':' + seconds;
+  }
   render() {
     return (
       <div className="app">
@@ -41,7 +48,7 @@ class App extends Component {
               {this.state.timerType}
             </div>
             <div id='time-left'>
-              {this.state.time}
+              {this.displayTimer()}
             </div>
           </div>
         </div>
