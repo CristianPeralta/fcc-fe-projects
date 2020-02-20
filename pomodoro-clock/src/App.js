@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const DEFAULT_TIME = 1500;
+const DEFAULT_TIME = 5;
 
 class App extends Component {
   constructor(props) {
@@ -10,31 +10,40 @@ class App extends Component {
       time: DEFAULT_TIME,
       timerType: 'Session',
       timerState: 'stopped',
+      timer: ''
     };
     this.startStopTimer = this.startStopTimer.bind(this);
     this.displayTimer = this.displayTimer.bind(this);
     this.buzzer = this.buzzer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.decrementTimer = this.decrementTimer.bind(this);
   }
 
   startStopTimer() {
     const currentTimerState = this.state.timerState === 'stopped';
     if (currentTimerState) {
-      this.timer = setInterval(() => {
-        if (this.state.time > 0) {
-          this.setState({
-            time: this.state.time - 1
-          })
-        } else {
-          this.buzzer(this.state.time);
-          clearInterval(this.timer);    
-        }
-      }, 1000);
+      this.setState({
+        timer: setInterval(() => {
+          this.decrementTimer();
+          this.control(this.state.time);
+        }, 1000),
+      })
     } else {
-      clearInterval(this.timer);
+      clearInterval(this.state.timer);
     }
     this.setState({
       timerState: currentTimerState ? 'started' : 'stopped',
+    });
+  }
+
+  control (time) {
+    this.buzzer(time);
+    time === 0 && clearInterval(this.state.timer);
+  }
+
+  decrementTimer () {
+    this.setState({
+      time: this.state.time - 1
     });
   }
 
@@ -56,11 +65,12 @@ class App extends Component {
     return minutes + ':' + seconds;
   }
 
-  buzzer(_timer) {
-    if (_timer === 0) {
+  buzzer(timer) {
+    if (timer === 0) {
       this.audioBeep.play();
     }
   }
+
   render() {
     return (
       <div className="app">
