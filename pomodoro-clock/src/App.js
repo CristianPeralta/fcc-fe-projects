@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const DEFAULT_TIME = 1500;
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: 1500,
+      time: DEFAULT_TIME,
       timerType: 'Session',
       timerState: 'stopped',
     };
@@ -37,7 +39,11 @@ class App extends Component {
   }
 
   resetTimer() {
-    this.setState({time: 1500});
+    this.setState({
+      timerState: 'stopped',
+      timerType: 'Session',
+      time: DEFAULT_TIME
+    });
     this.audioBeep.pause();
     this.audioBeep.currentTime = 0;
   }
