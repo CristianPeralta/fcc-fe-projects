@@ -11,15 +11,23 @@ class App extends Component {
     };
     this.startStopTimer = this.startStopTimer.bind(this);
     this.displayTimer = this.displayTimer.bind(this);
+    this.buzzer = this.buzzer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
   }
 
   startStopTimer() {
     const currentTimerState = this.state.timerState === 'stopped';
     if (currentTimerState) {
-      this.timer = setInterval(() => this.setState({
-        time: this.state.time - 1
-      }), 1000);
+      this.timer = setInterval(() => {
+        if (this.state.time > 0) {
+          this.setState({
+            time: this.state.time - 1
+          })
+        } else {
+          this.buzzer(this.state.time);
+          clearInterval(this.timer);    
+        }
+      }, 1000);
     } else {
       clearInterval(this.timer);
     }
@@ -29,7 +37,9 @@ class App extends Component {
   }
 
   resetTimer() {
-    this.setState({time: 1500})
+    this.setState({time: 1500});
+    this.audioBeep.pause();
+    this.audioBeep.currentTime = 0;
   }
 
   displayTimer() {
@@ -38,6 +48,12 @@ class App extends Component {
     seconds = seconds < 10 ? '0' + seconds : seconds;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     return minutes + ':' + seconds;
+  }
+
+  buzzer(_timer) {
+    if (_timer === 0) {
+      this.audioBeep.play();
+    }
   }
   render() {
     return (
@@ -59,6 +75,9 @@ class App extends Component {
         <button id="reset" onClick={this.resetTimer}>
           <i className="fa fa-refresh fa-2x"/>
         </button>
+        <audio id="beep" preload="auto" 
+          src="https://goo.gl/65cBl1"
+          ref={(audio) => { this.audioBeep = audio; }} />
       </div>
     )
   }
