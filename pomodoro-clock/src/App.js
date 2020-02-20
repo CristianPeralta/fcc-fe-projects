@@ -45,8 +45,13 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <button onClick={this.startStopTimer}>start|stop</button>
-        <button onClick={this.resetTimer}>reset</button>
+        <button id="start_stop" onClick={this.startStopTimer}>
+          <i className="fa fa-play fa-2x"/>
+          <i className="fa fa-pause fa-2x"/>
+        </button>
+        <button id="reset" onClick={this.resetTimer}>
+          <i className="fa fa-refresh fa-2x"/>
+        </button>
       </div>
     )
   }
