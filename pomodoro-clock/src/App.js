@@ -53,13 +53,25 @@ class App extends Component {
   }
 
   addLength(type) {
+    if (this.state.timerState == 'running') return;
+    if (type === "sessionLength") {
+      this.setState({
+        time: this.state.sessionLength * 60 + 60,
+      });  
+    }
     this.setState({
-      [type]: this.state[type] + 1
+      [type]: this.state[type] + 1,
     });
   }
 
   reduceLength(type) {
+    if (this.state.timerState == 'running') return;
     if (this.state[type] === 1) return;
+    if (type === "sessionLength") {
+      this.setState({
+        time: this.state.sessionLength * 60 - 60,
+      });  
+    }
     this.setState({
       [type]: this.state[type] - 1
     });
@@ -78,7 +90,7 @@ class App extends Component {
       clearInterval(this.state.timer);
     }
     this.setState({
-      timerState: currentTimerState ? 'started' : 'stopped',
+      timerState: currentTimerState ? 'running' : 'stopped',
     });
   }
 
