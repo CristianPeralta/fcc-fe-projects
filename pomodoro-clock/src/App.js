@@ -9,8 +9,10 @@ class TimerLengthControl extends Component {
   }
   render() {
     return (
-      <div>
-        <p>TIMER LENGTH CONTROL</p>
+      <div className="length-control">
+        <div id={this.props.titleID}>
+          {this.props.title}
+        </div>
       </div>
     );
   }
@@ -50,13 +52,13 @@ class App extends Component {
     });
   }
 
-  control (time) {
+  control(time) {
     this.buzzer(time);
     this.warning(time);
     time === 0 && clearInterval(this.state.timer);
   }
 
-  decrementTimer () {
+  decrementTimer() {
     this.setState({
       time: this.state.time - 1
     });
@@ -96,7 +98,14 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <TimerLengthControl/>
+        <TimerLengthControl
+          title="Session Length"
+          titleId="session-label"
+        />
+        <TimerLengthControl
+          title="Break Length"
+          titleId="break-label"
+        />
         <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
             <div id='timer-label'>
