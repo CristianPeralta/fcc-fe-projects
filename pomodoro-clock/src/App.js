@@ -113,10 +113,14 @@ class App extends Component {
   }
 
   resetTimer() {
+    clearInterval(this.state.timer);
     this.setState({
+      sessionLength: 25,
+      breakLength: 5,
       timerState: 'stopped',
       timerType: 'Session',
       time: DEFAULT_TIME,
+      timer: '',
       alarmColor: {color: 'white'}
     });
     this.audioBeep.pause();
