@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   addLength(type) {
-    if (this.state.timerState == 'running') return;
+    if (this.state.timerState == 'running' || this.state[type] >= 60) return;
     if (type === "sessionLength") {
       this.setState({
         time: this.state.sessionLength * 60 + 60,
@@ -97,7 +97,25 @@ class App extends Component {
   control(time) {
     this.buzzer(time);
     this.warning(time);
-    time === 0 && clearInterval(this.state.timer);
+    if (time < 0) { 
+      this.startStopTimer();
+      this.state.timer !== '' && clearInterval(this.state.timer);
+      if (this.state.timerType == 'Session') {
+        this.startStopTimer();
+        this.switchTimer(this.state.breakLength * 60, 'Break');
+      } else {
+        this.startStopTimer();
+        this.switchTimer(this.state.sessionLength * 60, 'Session');
+      }
+    }  ;
+  }
+
+  switchTimer(num, str) {
+    this.setState({
+      time: num,
+      timerType: str,
+      alarmColor: {color: 'white'}
+    })
   }
 
   decrementTimer() {
@@ -146,7 +164,7 @@ class App extends Component {
       <div className="app">
         <TimerLengthControl
           title="Session Length"
-          titleId="session-label"
+          titleID="session-label"
           lengthID="session-length"
           length={this.state.sessionLength}
           addID="session-increment"
@@ -156,7 +174,7 @@ class App extends Component {
         />
         <TimerLengthControl
           title="Break Length"
-          titleId="break-label"
+          titleID="break-label"
           lengthID="break-length"
           length={this.state.breakLength}
           addID="break-increment"
