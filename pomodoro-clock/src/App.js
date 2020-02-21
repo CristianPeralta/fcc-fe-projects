@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const DEFAULT_TIME = 5;
+const DEFAULT_TIME = 1500;
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class App extends Component {
     this.buzzer = this.buzzer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   startStopTimer() {
@@ -38,6 +39,7 @@ class App extends Component {
 
   control (time) {
     this.buzzer(time);
+    this.warning(time);
     time === 0 && clearInterval(this.state.timer);
   }
 
@@ -47,11 +49,18 @@ class App extends Component {
     });
   }
 
+  warning(timer) {
+    timer <= 60 ? 
+    this.setState({alarmColor: {color: '#a50d0d'}}) : 
+    this.setState({alarmColor: {color: 'white'}});
+  }
+
   resetTimer() {
     this.setState({
       timerState: 'stopped',
       timerType: 'Session',
-      time: DEFAULT_TIME
+      time: DEFAULT_TIME,
+      alarmColor: {color: 'white'}
     });
     this.audioBeep.pause();
     this.audioBeep.currentTime = 0;
@@ -74,7 +83,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <div className="timer">
+        <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
             <div id='timer-label'>
               {this.state.timerType}
