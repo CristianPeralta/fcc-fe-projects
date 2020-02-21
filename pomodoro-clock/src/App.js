@@ -13,6 +13,9 @@ class TimerLengthControl extends Component {
         <div id={this.props.titleID}>
           {this.props.title}
         </div>
+        <div id={this.props.lengthID} className="btn-level">
+          {this.props.length}
+        </div>
       </div>
     );
   }
@@ -23,6 +26,8 @@ class App extends Component {
     super(props);
     this.state = {
       time: DEFAULT_TIME,
+      breakLength: 5,
+      sessionLength: 25,
       timerType: 'Session',
       timerState: 'stopped',
       timer: ''
@@ -101,10 +106,14 @@ class App extends Component {
         <TimerLengthControl
           title="Session Length"
           titleId="session-label"
+          lengthID="session-length"
+          length={this.state.sessionLength}
         />
         <TimerLengthControl
           title="Break Length"
           titleId="break-label"
+          lengthID="break-length"
+          length={this.state.breakLength}
         />
         <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
