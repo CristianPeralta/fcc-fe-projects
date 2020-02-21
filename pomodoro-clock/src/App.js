@@ -3,6 +3,19 @@ import './App.css';
 
 const DEFAULT_TIME = 1500;
 
+class TimerLengthControl extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <p>TIMER LENGTH CONTROL</p>
+      </div>
+    );
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,12 +25,12 @@ class App extends Component {
       timerState: 'stopped',
       timer: ''
     };
-    this.startStopTimer = this.startStopTimer.bind(this);
-    this.displayTimer = this.displayTimer.bind(this);
     this.buzzer = this.buzzer.bind(this);
-    this.resetTimer = this.resetTimer.bind(this);
-    this.decrementTimer = this.decrementTimer.bind(this);
     this.warning = this.warning.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
+    this.displayTimer = this.displayTimer.bind(this);
+    this.decrementTimer = this.decrementTimer.bind(this);
+    this.startStopTimer = this.startStopTimer.bind(this);
   }
 
   startStopTimer() {
@@ -83,6 +96,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+        <TimerLengthControl/>
         <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
             <div id='timer-label'>
