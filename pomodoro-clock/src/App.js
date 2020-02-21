@@ -13,9 +13,19 @@ class TimerLengthControl extends Component {
         <div id={this.props.titleID}>
           {this.props.title}
         </div>
+        <button id={this.props.reduceID}
+          className="btn-level" value="-" 
+          onClick={this.props.onClick}>
+          <i className="fa fa-arrow-down fa-2x"/>
+        </button>
         <div id={this.props.lengthID} className="btn-level">
           {this.props.length}
         </div>
+        <button id={this.props.addID}
+          className="btn-level" value="+" 
+          onClick={this.props.onClick}>
+          <i className="fa fa-arrow-up fa-2x"/>
+        </button>
       </div>
     );
   }
@@ -108,12 +118,16 @@ class App extends Component {
           titleId="session-label"
           lengthID="session-length"
           length={this.state.sessionLength}
+          addID="session-increment"
+          reduceID="session-decrement"
         />
         <TimerLengthControl
           title="Break Length"
           titleId="break-label"
           lengthID="break-length"
           length={this.state.breakLength}
+          addID="break-increment"
+          reduceID="break-decrement"
         />
         <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
