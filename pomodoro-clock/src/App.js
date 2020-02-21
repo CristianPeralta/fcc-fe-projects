@@ -14,16 +14,16 @@ class TimerLengthControl extends Component {
           {this.props.title}
         </div>
         <button id={this.props.reduceID}
-          className="btn-level" value="-" 
-          onClick={this.props.onClick}>
+          className="btn-level"
+          onClick={this.props.reduce} > 
           <i className="fa fa-arrow-down fa-2x"/>
         </button>
         <div id={this.props.lengthID} className="btn-level">
           {this.props.length}
         </div>
         <button id={this.props.addID}
-          className="btn-level" value="+" 
-          onClick={this.props.onClick}>
+          className="btn-level"
+          onClick={this.props.add} >
           <i className="fa fa-arrow-up fa-2x"/>
         </button>
       </div>
@@ -48,6 +48,21 @@ class App extends Component {
     this.displayTimer = this.displayTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.startStopTimer = this.startStopTimer.bind(this);
+    this.addLength = this.addLength.bind(this);
+    this.reduceLength = this.reduceLength.bind(this);
+  }
+
+  addLength(type) {
+    this.setState({
+      [type]: this.state[type] + 1
+    });
+  }
+
+  reduceLength(type) {
+    if (this.state[type] === 1) return;
+    this.setState({
+      [type]: this.state[type] - 1
+    });
   }
 
   startStopTimer() {
@@ -120,6 +135,8 @@ class App extends Component {
           length={this.state.sessionLength}
           addID="session-increment"
           reduceID="session-decrement"
+          add={() => this.addLength("sessionLength")}
+          reduce={() => this.reduceLength("sessionLength")}
         />
         <TimerLengthControl
           title="Break Length"
@@ -128,6 +145,8 @@ class App extends Component {
           length={this.state.breakLength}
           addID="break-increment"
           reduceID="break-decrement"
+          add={() => this.addLength("breakLength")}
+          reduce={() => this.reduceLength("breakLength")}
         />
         <div className="timer" style={this.state.alarmColor}>
           <div className="timer-wrapper">
